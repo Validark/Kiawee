@@ -1,7 +1,7 @@
 import Tile from "./Types/Tile";
 
 export class AdjacencyModel {
-	constructor(Tiles: Array<Tile>) {
+	constructor(public tiles: Array<Tile>) {
 		//
 	}
 }
