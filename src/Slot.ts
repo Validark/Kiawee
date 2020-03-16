@@ -14,6 +14,6 @@ export class Slot {
 			return accumulator + tile.pLogP;
 		}, 0);
 
-		return (1 / totalProbability) * totalPLogP + math.log(totalProbability);
+		return (-1 / totalProbability) * totalPLogP + math.log(totalProbability);
 	}
 }
