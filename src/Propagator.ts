@@ -12,5 +12,14 @@ export class Propagator {
 		}
 	}
 
-	Run() {}
+	Run() {
+		// we gotta test this
+		const AvailableModuleTotal = this.slots.reduce((total, slot) => {
+			return total - slot.tiles.size();
+		}, 0);
+
+		while (AvailableModuleTotal > 0) {
+			//this could be a bad idea in the future and result in infinite yielding
+		}
+	}
 }
