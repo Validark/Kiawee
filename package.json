@@ -1,0 +1,27 @@
+{
+  "name": "@rbxts/Kiawe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "out/init.lua",
+  "scripts": {
+    "prepublishOnly": "rbxtsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xuleos/Kiawe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xuleos/Kiawe/issues"
+  },
+  "homepage": "https://github.com/Xuleos/Kiawe#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "out/index.d.ts",
+  "devDependencies": {
+    "@rbxts/types": "^1.0.342"
+  }
+}
