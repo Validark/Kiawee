@@ -1,5 +1,4 @@
+import { Slot } from "./Slot";
 export class Topology {
-	constructor() {
-		//
-	}
+	constructor(public slots: Array<Vector3>) {}
 }
