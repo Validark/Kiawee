@@ -21,5 +21,7 @@ export class Propagator {
 		while (AvailableModuleTotal > 0) {
 			//this could be a bad idea in the future and result in infinite yielding
 		}
+
+		print("We finished!");
 	}
 }
