@@ -1,5 +1,5 @@
 export class Tile {
-	constructor(model: Model) {
+	constructor(public model: Model, public probability: number) {
 		//
 	}
 }
