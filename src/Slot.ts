@@ -1,8 +1,8 @@
 import { Tile } from "./Tile";
 export class Slot {
-	Entropy: number;
+	entropy: number;
 	constructor(public pos: Vector3, public tiles: Array<Tile>) {
-		this.Entropy = this.CalculateEntropy();
+		this.entropy = this.CalculateEntropy();
 	}
 
 	CalculateEntropy() {
