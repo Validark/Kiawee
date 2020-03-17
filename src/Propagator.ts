@@ -30,4 +30,10 @@ export class Propagator {
 			print("We finished!");
 		}
 	}
+
+	private FindLowestEntropy(): Slot {
+		return this.slots.sort((a, b) => {
+			return a.entropy > b.entropy;
+		})[0];
+	}
 }
