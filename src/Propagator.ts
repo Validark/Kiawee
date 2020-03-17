@@ -31,6 +31,10 @@ export class Propagator {
 
 		while (availableModuleTotal > 0) {
 			//this could be a bad idea in the future and result in infinite yielding
+			const lowestEntropy = this.FindLowestEntropy();
+
+			const index = this.random.NextInteger(0, lowestEntropy.tiles.size());
+			lowestEntropy.tiles.remove(index);
 		}
 
 		if (this.options.Debug) {
