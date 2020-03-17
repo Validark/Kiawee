@@ -6,9 +6,16 @@ import PropagatorOptions from "./Interfaces/PropagatorOptions";
 
 export class Propagator {
 	slots: Array<Slot> = [];
+	private random: Random;
 	constructor(private topology: Topology, private model: AdjacencyModel, private options: PropagatorOptions) {
 		for (const position of topology.slots) {
 			this.slots.push(new Slot(position, model.tiles));
+		}
+
+		if (options.Seed !== undefined) {
+			this.random = new Random(options.Seed);
+		} else {
+			this.random = new Random();
 		}
 	}
 
