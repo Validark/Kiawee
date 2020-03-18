@@ -1,8 +1,14 @@
 import { Tile } from "./Tile";
+import { Propagator } from "./Propagator";
 export class Slot {
 	entropy: number;
-	constructor(public pos: Vector3, public tiles: Array<Tile>) {
+	confirmedTile: undefined | Tile;
+
+	private propagator: Readonly<Propagator>;
+	constructor(public pos: Vector3, public tiles: Array<Tile>, propagator: Propagator) {
 		this.entropy = this.CalculateEntropy();
+
+		this.propagator = propagator;
 	}
 
 	CalculateEntropy() {
