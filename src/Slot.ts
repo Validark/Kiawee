@@ -23,7 +23,28 @@ export class Slot {
 		return (-1 / totalProbability) * totalPLogP + math.log(totalProbability);
 	}
 
-	Collapse(tileIndex: number) {
-		this.tiles.remove(tileIndex);
+	Collapse(tile: Tile) {
+		this.confirmedTile = tile;
+
+		this.tiles = []; //empty array by garbage collecting current one
+	}
+
+	CollapseRandom() {
+		let totalWeight = 0;
+
+		for (const tile of this.tiles) {
+			totalWeight += tile.probability;
+		}
+
+		let random = this.propagator.random.NextInteger(1, totalWeight);
+
+		for (const tile of this.tiles) {
+			if (random <= tile.probability) {
+				this.Collapse(tile);
+				return;
+			} else {
+				random -= tile.probability;
+			}
+		}
 	}
 }
