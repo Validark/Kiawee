@@ -27,6 +27,8 @@ export class Slot {
 		this.confirmedTile = tile;
 
 		this.tiles = []; //empty array by garbage collecting current one
+
+		//physically build
 	}
 
 	CollapseRandom() {
@@ -45,6 +47,12 @@ export class Slot {
 			} else {
 				random -= tile.probability;
 			}
+		}
+
+		const firstTile = this.tiles.find(x => x !== undefined);
+
+		if (firstTile) {
+			this.Collapse(firstTile);
 		}
 	}
 }
