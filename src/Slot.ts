@@ -16,4 +16,8 @@ export class Slot {
 
 		return (-1 / totalProbability) * totalPLogP + math.log(totalProbability);
 	}
+
+	Collapse(tileIndex: number) {
+		this.tiles.remove(tileIndex);
+	}
 }

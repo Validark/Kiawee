@@ -34,7 +34,8 @@ export class Propagator {
 			const lowestEntropy = this.FindLowestEntropy();
 
 			const index = this.random.NextInteger(0, lowestEntropy.tiles.size());
-			lowestEntropy.tiles.remove(index);
+
+			lowestEntropy.Collapse(index);
 		}
 
 		if (this.options.Debug) {
