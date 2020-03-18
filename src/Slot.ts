@@ -29,8 +29,11 @@ export class Slot {
 		this.tiles = []; //empty array by garbage collecting current one
 
 		//physically build
+
+		//propagate
 	}
 
+	//Test
 	CollapseRandom() {
 		let totalWeight = 0;
 
