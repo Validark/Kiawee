@@ -29,8 +29,11 @@ export class Slot {
 		this.tiles = []; //empty array by garbage collecting current one
 
 		//physically build
-
+		const clone = this.confirmedTile.model.Clone();
+		clone.SetPrimaryPartCFrame(new CFrame(this.pos));
+		clone.Parent = game.Workspace;
 		//propagate
+		
 	}
 
 	//Test
