@@ -49,8 +49,12 @@ export class Propagator {
 
 	//need to test
 	private FindLowestEntropy(): Slot {
-		return this.slots.sort((a, b) => {
+		const sorted = this.slots.sort((a, b) => {
 			return a.entropy > b.entropy;
+		});
+
+		return sorted.filter(slot => {
+			return slot.confirmedTile === undefined;
 		})[0];
 	}
 }
