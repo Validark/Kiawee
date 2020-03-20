@@ -1,4 +1,4 @@
-import { Topology } from "./Topology";
+import { BaseTopology } from "./Topology";
 import { AdjacencyModel } from "./AdjacencyModel";
 import { Slot } from "./Slot";
 
@@ -7,7 +7,7 @@ import PropagatorOptions from "./Interfaces/PropagatorOptions";
 export class Propagator {
 	slots: Array<Slot> = [];
 	readonly random: Random;
-	constructor(private topology: Topology, private model: AdjacencyModel, private options: PropagatorOptions) {
+	constructor(private topology: BaseTopology, private model: AdjacencyModel, private options: PropagatorOptions) {
 		for (const position of topology.slots) {
 			this.slots.push(new Slot(position, model.tiles, this));
 		}

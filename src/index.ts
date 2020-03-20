@@ -1,3 +1,3 @@
-export { Topology } from "./Topology";
-export { AdjacencyModel } from "./AdjacencyModel";
-export { Propagator } from "./Propagator";
+export * from "./Topology";
+export { AdjacencyModel } from "AdjacencyModel";
+export { Propagator } from "Propagator";
