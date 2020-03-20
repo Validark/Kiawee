@@ -37,9 +37,10 @@ export class Propagator {
 			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
 
-			availableModulesLeft = this.GetAvailableModulesLeft();
+			this.Propagate(lowestEntropy);
 
-			wait(1);
+			availableModulesLeft = this.GetAvailableModulesLeft();
+			wait(10);
 		}
 
 		if (this.options.Debug) {
@@ -56,5 +57,17 @@ export class Propagator {
 		return sorted.filter(slot => {
 			return slot.confirmedTile === undefined;
 		})[0];
+	}
+
+	private Propagate(slot: Slot) {
+		const slotNeighbors = this.topology.GetNeighbors(slot.pos);
+
+		for (const [dir, neighborCoord] of Object.entries(slotNeighbors)) {
+			// eslint-disable-next-line roblox-ts/no-object-math
+			const neighbor = this.slots.find(slot => slot.pos === neighborCoord);
+			if (neighbor) {
+				neighbor.DebugInstance.Color = Color3.fromRGB(0, 0, 255);
+			}
+		}
 	}
 }
