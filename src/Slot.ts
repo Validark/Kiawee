@@ -4,9 +4,19 @@ export class Slot {
 	entropy: number;
 	confirmedTile: undefined | Tile;
 
+	DebugInstance: Part;
 	private propagator: Readonly<Propagator>;
 	constructor(public pos: Vector3, public tiles: Array<Tile>, propagator: Propagator) {
 		this.entropy = this.CalculateEntropy();
+
+		const DebugInst = new Instance("Part");
+		DebugInst.Size = new Vector3(5, 5, 5);
+		DebugInst.Transparency = 0.8;
+		DebugInst.Position = pos;
+		DebugInst.Anchored = true;
+		DebugInst.Parent = game.Workspace;
+
+		this.DebugInstance = DebugInst;
 
 		this.propagator = propagator;
 	}
@@ -32,8 +42,9 @@ export class Slot {
 		const clone = this.confirmedTile.model.Clone();
 		clone.SetPrimaryPartCFrame(new CFrame(this.pos));
 		clone.Parent = game.Workspace;
+
+		this.DebugInstance.Destroy();
 		//propagate
-		
 	}
 
 	//Test
