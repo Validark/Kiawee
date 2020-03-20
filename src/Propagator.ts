@@ -19,21 +19,27 @@ export class Propagator {
 		}
 	}
 
-	Run() {
-		// we gotta test this
-		const availableModuleTotal = this.slots.reduce((total, slot) => {
-			return total - slot.tiles.size();
+	GetAvailableModulesLeft(): number {
+		return this.slots.reduce((total, slot) => {
+			return total + slot.tiles.size();
 		}, 0);
+	}
 
-		if (this.options.Debug) {
-			print(`${availableModuleTotal} modules left in wave function`);
-		}
+	Run() {
+		let availableModulesLeft = this.GetAvailableModulesLeft();
 
 		//this could be a bad idea in the future and result in infinite yielding
-		while (availableModuleTotal > 0) {
-			const lowestEntropy = this.FindLowestEntropy();
+		while (availableModulesLeft > 0) {
+			if (this.options.Debug) {
+				print(`${availableModulesLeft} modules left in wave function`);
+			}
 
+			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
+
+			availableModulesLeft = this.GetAvailableModulesLeft();
+
+			wait(1);
 		}
 
 		if (this.options.Debug) {
