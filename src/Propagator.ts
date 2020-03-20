@@ -7,7 +7,7 @@ import PropagatorOptions from "./Interfaces/PropagatorOptions";
 export class Propagator {
 	slots: Array<Slot> = [];
 	readonly random: Random;
-	constructor(private topology: BaseTopology, private model: AdjacencyModel, private options: PropagatorOptions) {
+	constructor(public topology: BaseTopology, private model: AdjacencyModel, private options: PropagatorOptions) {
 		for (const position of topology.slots) {
 			this.slots.push(new Slot(position, model.tiles, this));
 		}
