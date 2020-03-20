@@ -41,7 +41,7 @@ export class GridTopology extends BaseTopology {
 
 	//Need to test
 	GetNeighbors(slotPos: Vector3) {
-		const Neighbors: NeighborReturn = {};
+		const neighbors: NeighborReturn = {};
 
 		for (const [dirName, vector] of Object.entries(Directions)) {
 			const neighborCoords = slotPos.add(vector.mul(this.slotSize));
@@ -50,10 +50,10 @@ export class GridTopology extends BaseTopology {
 			const neighbor = this.slots.find(slotCoords => slotCoords === neighborCoords);
 
 			if (neighbor) {
-				Neighbors[dirName] = neighbor;
+				neighbors[dirName] = neighbor;
 			}
 		}
 
-		return Neighbors;
+		return neighbors;
 	}
 }
