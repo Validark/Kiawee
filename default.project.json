@@ -25,6 +25,13 @@
             "TestEZ": {
                 "$path": "vendor/TestEZ/src"
             }
+        },
+
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "test": {
+                "$path": "bin/test.server.lua"
+            }
         }
     }
 }
