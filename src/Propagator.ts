@@ -29,8 +29,8 @@ export class Propagator {
 			print(`${availableModuleTotal} modules left in wave function`);
 		}
 
+		//this could be a bad idea in the future and result in infinite yielding
 		while (availableModuleTotal > 0) {
-			//this could be a bad idea in the future and result in infinite yielding
 			const lowestEntropy = this.FindLowestEntropy();
 
 			lowestEntropy.CollapseRandom();
