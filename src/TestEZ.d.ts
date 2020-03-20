@@ -41,3 +41,4 @@ declare function it(phrase: string, callback: () => void): void;
 declare function itFOCUS(phrase: string, callback: () => void): void;
 declare function itSKIP(phrase: string, callback: () => void): void;
 declare function SKIP(): void;
+declare function HACK_NO_XPCALL(): void;
