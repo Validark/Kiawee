@@ -42,10 +42,16 @@ export = () => {
 			},
 		]);
 
+		print("Adjacency model created");
+
 		const Propagator = new Kiawe.Propagator(Topology, AdjacencyModel, {
 			Debug: true,
 		});
 
+		print("Propagator created");
+
 		Propagator.Run();
+
+		print("Propagator ran");
 	});
 };
