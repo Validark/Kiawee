@@ -36,7 +36,12 @@ export class Slot {
 	Collapse(tile: Tile) {
 		this.confirmedTile = tile;
 
-		this.tiles = []; //empty array by garbage collecting current one
+		//I don't want to mutate the original tiles
+		const excessTiles = this.tiles.filter(item => {
+			return item !== tile;
+		});
+
+		this.RemoveTiles(excessTiles);
 
 		//physically build
 		const clone = this.confirmedTile.model.Clone();
@@ -44,7 +49,27 @@ export class Slot {
 		clone.Parent = game.Workspace;
 
 		this.DebugInstance.Destroy();
-		//propagate
+	}
+
+	RemoveTiles(tiles: Array<Tile>) {
+		for (const tile of tiles) {
+			const tileIndex = this.tiles.indexOf(tile);
+
+			//Now we mutate >:)
+			this.tiles.remove(tileIndex);
+
+			//Might be useful to cache this somewhere later
+			const slotNeighbors = this.propagator.topology.GetNeighbors(this.pos);
+
+			for (const [dir, neighborCoord] of Object.entries(slotNeighbors)) {
+				// eslint-disable-next-line roblox-ts/no-object-math
+				const neighbor = this.propagator.slots.find(slot => slot.pos === neighborCoord);
+
+				if (neighbor) {
+					neighbor.DebugInstance.Color = Color3.fromRGB(0, 0, 255);
+				}
+			}
+		}
 	}
 
 	//Test
