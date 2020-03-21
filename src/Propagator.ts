@@ -30,15 +30,20 @@ export class Propagator {
 
 		//this could be a bad idea in the future and result in infinite yielding
 		while (availableModulesLeft > 0) {
-			if (this.options.Debug) {
-				print(`${availableModulesLeft} modules left in wave function`);
-			}
+			wait(10);
 
 			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
 
 			availableModulesLeft = this.GetAvailableModulesLeft();
-			wait(10);
+
+			if (this.options.Debug) {
+				print(`${availableModulesLeft} modules left in wave function`);
+
+				for (const slot of this.slots) {
+					slot.modulesDisplay.Text = tostring(slot.tiles.size());
+				}
+			}
 		}
 
 		if (this.options.Debug) {

@@ -4,7 +4,9 @@ export class Slot {
 	entropy: number;
 	confirmedTile: undefined | Tile;
 
-	DebugInstance: Part;
+	debugInstance: Part;
+	modulesDisplay: TextLabel;
+
 	private propagator: Readonly<Propagator>;
 	constructor(public pos: Vector3, public tiles: Array<Tile>, propagator: Propagator) {
 		this.entropy = this.CalculateEntropy();
@@ -16,7 +18,18 @@ export class Slot {
 		DebugInst.Anchored = true;
 		DebugInst.Parent = game.Workspace;
 
-		this.DebugInstance = DebugInst;
+		const DebugDisplay = new Instance("SurfaceGui");
+		DebugDisplay.Face = Enum.NormalId.Top;
+		DebugDisplay.Parent = DebugInst;
+
+		const modulesDisplay = new Instance("TextLabel");
+		modulesDisplay.Parent = DebugDisplay;
+		modulesDisplay.Size = new UDim2(1, 0, 1, 0);
+		modulesDisplay.TextScaled = true;
+		modulesDisplay.Text = tostring(this.tiles.size());
+
+		this.debugInstance = DebugInst;
+		this.modulesDisplay = modulesDisplay;
 
 		this.propagator = propagator;
 	}
@@ -48,7 +61,7 @@ export class Slot {
 		clone.SetPrimaryPartCFrame(new CFrame(this.pos));
 		clone.Parent = game.Workspace;
 
-		this.DebugInstance.Destroy();
+		this.debugInstance.Destroy();
 	}
 
 	RemoveTiles(tiles: Array<Tile>) {
@@ -66,7 +79,8 @@ export class Slot {
 				const neighbor = this.propagator.slots.find(slot => slot.pos === neighborCoord);
 
 				if (neighbor) {
-					neighbor.DebugInstance.Color = Color3.fromRGB(0, 0, 255);
+					neighbor.debugInstance.Size = new Vector3(2.5, 2.5, 2.5).mul(neighbor.tiles.size());
+					neighbor.debugInstance.Color = Color3.fromRGB(0, 0, 255);
 				}
 			}
 		}
