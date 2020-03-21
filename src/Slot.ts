@@ -29,6 +29,7 @@ export class Slot {
 		const modulesDisplay = new Instance("TextLabel");
 		modulesDisplay.Parent = DebugDisplay;
 		modulesDisplay.Size = new UDim2(1, 0, 1, 0);
+		modulesDisplay.BackgroundTransparency = 1;
 		modulesDisplay.TextScaled = true;
 		modulesDisplay.Text = tostring(this.tiles.size());
 
