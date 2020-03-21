@@ -3,12 +3,16 @@ import { Propagator } from "./Propagator";
 export class Slot {
 	entropy: number;
 	confirmedTile: undefined | Tile;
+	tiles: Array<Tile>;
 
 	debugInstance: Part;
 	modulesDisplay: TextLabel;
 
 	private propagator: Readonly<Propagator>;
-	constructor(public pos: Vector3, public tiles: Array<Tile>, propagator: Propagator) {
+
+	constructor(public pos: Vector3, tiles: Array<Tile>, propagator: Propagator) {
+		this.tiles = tiles.copy();
+
 		this.entropy = this.CalculateEntropy();
 
 		const DebugInst = new Instance("Part");
@@ -51,7 +55,7 @@ export class Slot {
 
 		//I don't want to mutate the original tiles
 		const excessTiles = this.tiles.filter(item => {
-			return item !== tile;
+			return item !== this.confirmedTile;
 		});
 
 		this.RemoveTiles(excessTiles);
@@ -65,9 +69,9 @@ export class Slot {
 	}
 
 	RemoveTiles(tiles: Array<Tile>) {
+		print("Removing tiles");
 		for (const tile of tiles) {
 			const tileIndex = this.tiles.indexOf(tile);
-
 			//Now we mutate >:)
 			this.tiles.remove(tileIndex);
 
