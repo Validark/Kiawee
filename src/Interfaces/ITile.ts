@@ -4,6 +4,7 @@ interface ITile<RuleIndex extends string> {
 	rules: {
 		[key in RuleIndex]: string;
 	};
+	index: string;
 }
 
 export = ITile;

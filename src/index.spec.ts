@@ -43,6 +43,7 @@ export = () => {
 					Top: "1",
 					Bottom: "1",
 				},
+				index: "1",
 			},
 			{
 				probability: 1,
@@ -55,6 +56,7 @@ export = () => {
 					Top: "1",
 					Bottom: "1",
 				},
+				index: "2",
 			},
 		]);
 
