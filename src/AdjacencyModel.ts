@@ -26,4 +26,27 @@ export class AdjacencyModel<T extends BaseTopology> {
 			}
 		}
 	}
+
+	//This is gross
+	private GetInverseDirection(direction: string): string {
+		const dirVector = this.topology.Directions[direction];
+		if (dirVector) {
+			//There isn't a unary datatype math method thing so we have to make ugly assertions ;(
+			// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+			const inverseVector = (-dirVector as unknown) as Vector3;
+
+			const inverseDirectionSet = Object.entries(this.topology.Directions).find(
+				// eslint-disable-next-line roblox-ts/no-object-math
+				([key, value]) => value === inverseVector,
+			);
+
+			if (inverseDirectionSet) {
+				return inverseDirectionSet[0];
+			} else {
+				error(`Could not get inverse direction set`);
+			}
+		} else {
+			error(`${direction} is not a valid direction of this.topology.Directions`);
+		}
+	}
 }
