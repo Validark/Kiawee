@@ -4,6 +4,10 @@ interface NeighborReturn {
 	[index: string]: Vector3 | undefined;
 }
 export abstract class BaseTopology {
+	abstract Directions: {
+		[index: string]: Vector3;
+	};
+
 	constructor(public slots: Array<Vector3>) {}
 
 	/**
@@ -13,15 +17,16 @@ export abstract class BaseTopology {
 	abstract GetNeighbors(slotPos: Vector3): NeighborReturn;
 }
 
-const Directions = {
-	Left: new Vector3(-1, 0, 0),
-	Right: new Vector3(1, 0, 0),
-	Front: new Vector3(0, 0, -1),
-	Back: new Vector3(0, 0, 1),
-	Top: new Vector3(0, 1, 0),
-	Bottom: new Vector3(0, -1, 0),
-};
 export class GridTopology extends BaseTopology {
+	Directions: {
+		Left: Vector3;
+		Right: Vector3;
+		Front: Vector3;
+		Back: Vector3;
+		Top: Vector3;
+		Bottom: Vector3;
+	};
+
 	private slotSize: Vector3;
 
 	constructor(gridSize: Vector3, slotSize: Vector3) {
@@ -37,13 +42,22 @@ export class GridTopology extends BaseTopology {
 		super(slots);
 
 		this.slotSize = slotSize;
+
+		this.Directions = {
+			Left: new Vector3(-1, 0, 0),
+			Right: new Vector3(1, 0, 0),
+			Front: new Vector3(0, 0, -1),
+			Back: new Vector3(0, 0, 1),
+			Top: new Vector3(0, 1, 0),
+			Bottom: new Vector3(0, -1, 0),
+		};
 	}
 
 	//Need to test
 	GetNeighbors(slotPos: Vector3) {
 		const neighbors: NeighborReturn = {};
 
-		for (const [dirName, vector] of Object.entries(Directions)) {
+		for (const [dirName, vector] of Object.entries(this.Directions)) {
 			const neighborCoords = slotPos.add(vector.mul(this.slotSize));
 
 			// eslint-disable-next-line roblox-ts/no-object-math

@@ -1,13 +1,22 @@
 import { BaseTopology } from "./Topology";
 import { AdjacencyModel } from "./AdjacencyModel";
 import { Slot } from "./Slot";
+import { Tile } from "./Tile";
 
 import PropagatorOptions from "./Interfaces/PropagatorOptions";
 
-export class Propagator {
+export class Propagator<T extends BaseTopology> {
 	slots: Array<Slot> = [];
+
 	readonly random: Random;
-	constructor(public topology: BaseTopology, private model: AdjacencyModel, private options: PropagatorOptions) {
+
+	private initialTileHealth?: {
+		[direction: string]: {
+			[Index: string]: number;
+		};
+	};
+
+	constructor(public topology: T, private model: AdjacencyModel<T>, private options: PropagatorOptions) {
 		for (const position of topology.slots) {
 			this.slots.push(new Slot(position, model.tiles, this));
 		}
@@ -60,5 +69,16 @@ export class Propagator {
 		return sorted.filter(slot => {
 			return slot.confirmedTile === undefined;
 		})[0];
+	}
+
+	private CreateInitialTileHealth(tiles: Array<Tile>) {
+		this.initialTileHealth = {};
+
+		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
+			this.initialTileHealth[dirName] = {};
+
+			for (const tile of tiles) {
+			}
+		}
 	}
 }

@@ -1,5 +1,6 @@
 import { Tile } from "./Tile";
 import { Propagator } from "./Propagator";
+import { BaseTopology } from "Topology";
 export class Slot {
 	entropy: number;
 	confirmedTile: undefined | Tile;
@@ -8,9 +9,9 @@ export class Slot {
 	debugInstance: Part;
 	modulesDisplay: TextLabel;
 
-	private propagator: Readonly<Propagator>;
+	private propagator: Readonly<Propagator<BaseTopology>>;
 
-	constructor(public pos: Vector3, tiles: Array<Tile>, propagator: Propagator) {
+	constructor(public pos: Vector3, tiles: Array<Tile>, propagator: Propagator<BaseTopology>) {
 		this.tiles = tiles.copy();
 
 		this.entropy = this.CalculateEntropy();

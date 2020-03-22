@@ -31,14 +31,30 @@ export = () => {
 
 		placeholderModel2.PrimaryPart = placeholderPart2;
 
-		const AdjacencyModel = new Kiawe.AdjacencyModel([
+		const AdjacencyModel = new Kiawe.AdjacencyModel(Topology, [
 			{
 				probability: 1,
 				model: placeholderModel1,
+				rules: {
+					Left: "1",
+					Right: "1",
+					Front: "1",
+					Back: "1",
+					Top: "1",
+					Bottom: "1",
+				},
 			},
 			{
 				probability: 1,
 				model: placeholderModel2,
+				rules: {
+					Left: "1",
+					Right: "1",
+					Front: "1",
+					Back: "1",
+					Top: "1",
+					Bottom: "1",
+				},
 			},
 		]);
 
