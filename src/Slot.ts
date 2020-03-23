@@ -11,7 +11,16 @@ export class Slot {
 
 	private propagator: Readonly<Propagator<BaseTopology>>;
 
-	constructor(public pos: Vector3, tiles: Array<Tile>, propagator: Propagator<BaseTopology>) {
+	constructor(
+		public pos: Vector3,
+		tiles: Array<Tile>,
+		propagator: Propagator<BaseTopology>,
+		public moduleHealth: {
+			[direction: string]: {
+				[Index: string]: number;
+			};
+		},
+	) {
 		this.tiles = tiles.copy();
 
 		this.entropy = this.CalculateEntropy();
@@ -82,17 +91,30 @@ export class Slot {
 			const tileIndex = this.tiles.indexOf(tile);
 			//Now we mutate >:)
 			this.tiles.remove(tileIndex);
+		}
 
-			//Might be useful to cache this somewhere later
-			const slotNeighbors = this.propagator.topology.GetNeighbors(this.pos);
+		//Might be useful to cache this somewhere later
+		const slotNeighbors = this.propagator.topology.GetNeighbors(this.pos);
 
-			for (const [dir, neighborCoord] of Object.entries(slotNeighbors)) {
-				// eslint-disable-next-line roblox-ts/no-object-math
-				const neighbor = this.propagator.slots.find(slot => slot.pos === neighborCoord);
+		for (const [dir, neighborCoord] of Object.entries(slotNeighbors)) {
+			const inverseDirName = this.propagator.model.GetInverseDirection(dir);
 
-				if (neighbor) {
-					neighbor.debugInstance.Size = new Vector3(2.5, 2.5, 2.5).mul(neighbor.tiles.size());
-					neighbor.debugInstance.Color = Color3.fromRGB(0, 0, 255);
+			// eslint-disable-next-line roblox-ts/no-object-math
+			const neighbor = this.propagator.slots.find(slot => slot.pos === neighborCoord);
+
+			if (neighbor) {
+				neighbor.debugInstance.Size = new Vector3(2.5, 2.5, 2.5).mul(neighbor.tiles.size());
+				neighbor.debugInstance.Color = Color3.fromRGB(0, 0, 255);
+
+				for (const tile of tiles) {
+					for (const possibleNeighbor of tile.possibleNeighbors[dir]) {
+						if (
+							neighbor.moduleHealth[inverseDirName][possibleNeighbor] === 1 &&
+							neighbor.ContainsTile(possibleNeighbor)
+						) {
+							//Remove
+						}
+					}
 				}
 			}
 		}

@@ -10,15 +10,17 @@ export class Propagator<T extends BaseTopology> {
 
 	readonly random: Random;
 
-	private initialTileHealth?: {
+	private initialTileHealth: {
 		[direction: string]: {
 			[Index: string]: number;
 		};
 	};
 
-	constructor(public topology: T, private model: AdjacencyModel<T>, private options: PropagatorOptions) {
+	constructor(public topology: T, public model: AdjacencyModel<T>, private options: PropagatorOptions) {
+		this.initialTileHealth = this.CreateInitialTileHealth(model.tiles);
+
 		for (const position of topology.slots) {
-			this.slots.push(new Slot(position, model.tiles, this));
+			this.slots.push(new Slot(position, model.tiles, this, this.initialTileHealth));
 		}
 
 		if (options.Seed !== undefined) {
@@ -72,14 +74,19 @@ export class Propagator<T extends BaseTopology> {
 	}
 
 	private CreateInitialTileHealth(tiles: Array<Tile>) {
-		this.initialTileHealth = {};
+		const initialTileHealth = {};
 
 		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
+			const inverseDirName = this.model.GetInverseDirection(dirName);
 			this.initialTileHealth[dirName] = {};
 
 			for (const tile of tiles) {
-				for (possibleNeighbors)
+				for (const possibleNeighborIndex of tile.possibleNeighbors[inverseDirName]) {
+					this.initialTileHealth[dirName][possibleNeighborIndex]++;
+				}
 			}
 		}
+
+		return initialTileHealth;
 	}
 }
