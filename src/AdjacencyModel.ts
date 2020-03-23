@@ -11,27 +11,8 @@ export class AdjacencyModel<T extends BaseTopology> {
 		}
 	}
 
-	private GetPossibleNeighbors(tileDefinition: ITile<string>) {
-		const possibleNeighbors: {
-			[direction: string]: Array<string>; //Array of tile indexes
-		} = {};
-
-		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
-			possibleNeighbors[dirName] = [];
-
-			const inverseDirName = this.GetInverseDirection(dirName);
-			for (const definition of this.tileDefinitions) {
-				if (definition.rules[inverseDirName] === tileDefinition.rules[dirName]) {
-					possibleNeighbors[dirName].push(definition.index);
-				}
-			}
-		}
-
-		return possibleNeighbors;
-	}
-
 	//This is gross
-	private GetInverseDirection(direction: string): string {
+	GetInverseDirection(direction: string): string {
 		const dirVector = this.topology.Directions[direction];
 		if (dirVector) {
 			//There isn't a unary datatype math method thing so we have to make ugly assertions ;(
@@ -51,5 +32,24 @@ export class AdjacencyModel<T extends BaseTopology> {
 		} else {
 			error(`${direction} is not a valid direction of this.topology.Directions`);
 		}
+	}
+
+	private GetPossibleNeighbors(tileDefinition: ITile<string>) {
+		const possibleNeighbors: {
+			[direction: string]: Array<string>; //Array of tile indexes
+		} = {};
+
+		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
+			possibleNeighbors[dirName] = [];
+
+			const inverseDirName = this.GetInverseDirection(dirName);
+			for (const definition of this.tileDefinitions) {
+				if (definition.rules[inverseDirName] === tileDefinition.rules[dirName]) {
+					possibleNeighbors[dirName].push(definition.index);
+				}
+			}
+		}
+
+		return possibleNeighbors;
 	}
 }
