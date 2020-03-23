@@ -41,7 +41,7 @@ export class Propagator<T extends BaseTopology> {
 
 		//this could be a bad idea in the future and result in infinite yielding
 		while (availableModulesLeft > 0) {
-			wait(10);
+			wait(5);
 
 			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
@@ -74,15 +74,23 @@ export class Propagator<T extends BaseTopology> {
 	}
 
 	private CreateInitialTileHealth(tiles: Array<Tile>) {
-		const initialTileHealth = {};
+		const initialTileHealth: {
+			[direction: string]: {
+				[Index: string]: number;
+			};
+		} = {};
 
 		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
 			const inverseDirName = this.model.GetInverseDirection(dirName);
-			this.initialTileHealth[dirName] = {};
+			initialTileHealth[dirName] = {};
 
 			for (const tile of tiles) {
 				for (const possibleNeighborIndex of tile.possibleNeighbors[inverseDirName]) {
-					this.initialTileHealth[dirName][possibleNeighborIndex]++;
+					if (initialTileHealth[dirName][possibleNeighborIndex] === undefined) {
+						initialTileHealth[dirName][possibleNeighborIndex] = 0;
+					}
+
+					initialTileHealth[dirName][possibleNeighborIndex]++;
 				}
 			}
 		}
