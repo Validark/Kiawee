@@ -36,7 +36,11 @@ export class Propagator<T extends BaseTopology> {
 	}
 
 	GetAvailableModulesLeft(): number {
-		return this.slots.reduce((total, slot) => {
+		const collapseFiltered = this.slots.filter(slot => {
+			return !slot.confirmedTile;
+		});
+
+		return collapseFiltered.reduce((total, slot) => {
 			return total + slot.tiles.size();
 		}, 0);
 	}
