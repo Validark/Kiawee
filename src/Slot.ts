@@ -97,8 +97,6 @@ export class Slot {
 	}
 
 	RemoveTiles(tiles: Array<Tile>, recursive = true) {
-		print("Removing tiles");
-
 		//Might be useful to cache this somewhere later
 		const slotNeighbors = this.propagator.topology.GetNeighbors(this.pos);
 
