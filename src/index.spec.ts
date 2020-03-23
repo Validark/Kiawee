@@ -33,7 +33,7 @@ export = () => {
 
 		const AdjacencyModel = new Kiawe.AdjacencyModel(Topology, [
 			{
-				probability: 1,
+				probability: 3,
 				model: placeholderModel1,
 				rules: {
 					Left: "1",

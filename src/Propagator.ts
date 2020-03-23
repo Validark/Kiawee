@@ -8,6 +8,11 @@ import PropagatorOptions from "./Interfaces/PropagatorOptions";
 export class Propagator<T extends BaseTopology> {
 	slots: Array<Slot> = [];
 
+	RemovalQueue: Array<{
+		tile: Tile;
+		slot: Slot;
+	}> = [];
+
 	readonly random: Random;
 
 	private initialTileHealth: {
@@ -43,6 +48,10 @@ export class Propagator<T extends BaseTopology> {
 		while (availableModulesLeft > 0) {
 			wait(5);
 
+			for (const slot of this.slots) {
+				slot.entropy = slot.CalculateEntropy();
+			}
+
 			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
 
@@ -53,6 +62,7 @@ export class Propagator<T extends BaseTopology> {
 
 				for (const slot of this.slots) {
 					slot.modulesDisplay.Text = tostring(slot.tiles.size());
+					slot.entropyDisplay.Text = tostring(slot.entropy);
 				}
 			}
 		}
@@ -62,10 +72,20 @@ export class Propagator<T extends BaseTopology> {
 		}
 	}
 
+	FinishRemovalQueue() {
+		while (this.RemovalQueue.size() > 0) {
+			const entry = this.RemovalQueue.pop();
+
+			if (entry && !entry.slot.confirmedTile) {
+				entry.slot.RemoveTiles([entry.tile], false);
+			}
+		}
+	}
+
 	//need to test
 	private FindLowestEntropy(): Slot {
 		const sorted = this.slots.sort((a, b) => {
-			return a.entropy > b.entropy;
+			return a.entropy < b.entropy;
 		});
 
 		return sorted.filter(slot => {

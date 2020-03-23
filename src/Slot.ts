@@ -8,6 +8,7 @@ export class Slot {
 
 	debugInstance: Part;
 	modulesDisplay: TextLabel;
+	entropyDisplay: TextLabel;
 
 	private propagator: Readonly<Propagator<BaseTopology>>;
 
@@ -38,23 +39,34 @@ export class Slot {
 
 		const modulesDisplay = new Instance("TextLabel");
 		modulesDisplay.Parent = DebugDisplay;
-		modulesDisplay.Size = new UDim2(1, 0, 1, 0);
+		modulesDisplay.Size = new UDim2(1, 0, 0.5, 0);
 		modulesDisplay.BackgroundTransparency = 1;
 		modulesDisplay.TextScaled = true;
 		modulesDisplay.Text = tostring(this.tiles.size());
 
+		const entropyDisplay = new Instance("TextLabel");
+		entropyDisplay.Parent = DebugDisplay;
+		entropyDisplay.BackgroundTransparency = 1;
+		entropyDisplay.Size = new UDim2(1, 0, 0.5, 0);
+		entropyDisplay.Position = new UDim2(0, 0, 0.5, 0);
+		entropyDisplay.TextScaled = true;
+		entropyDisplay.Text = tostring(this.entropy);
+
 		this.debugInstance = DebugInst;
 		this.modulesDisplay = modulesDisplay;
+		this.entropyDisplay = entropyDisplay;
 
 		this.propagator = propagator;
 	}
 
 	CalculateEntropy() {
+		print("Calculating entropy");
 		const totalProbability = this.tiles.reduce((accumulator, tile) => {
 			return accumulator + tile.probability;
 		}, 0);
 
 		const totalPLogP = this.tiles.reduce((accumulator, tile) => {
+			print(tile.pLogP);
 			return accumulator + tile.pLogP;
 		}, 0);
 
@@ -85,13 +97,8 @@ export class Slot {
 		});
 	}
 
-	RemoveTiles(tiles: Array<Tile>) {
+	RemoveTiles(tiles: Array<Tile>, recursive = true) {
 		print("Removing tiles");
-		for (const tile of tiles) {
-			const tileIndex = this.tiles.indexOf(tile);
-			//Now we mutate >:)
-			this.tiles.remove(tileIndex);
-		}
 
 		//Might be useful to cache this somewhere later
 		const slotNeighbors = this.propagator.topology.GetNeighbors(this.pos);
@@ -110,13 +117,26 @@ export class Slot {
 					for (const possibleNeighbor of tile.possibleNeighbors[dir]) {
 						const possibleNeighborTile = neighbor.ContainsTile(possibleNeighbor);
 						if (neighbor.moduleHealth[inverseDirName][possibleNeighbor] === 1 && possibleNeighborTile) {
-							neighbor.Collapse(possibleNeighborTile);
+							this.propagator.RemovalQueue.push({
+								tile: possibleNeighborTile,
+								slot: neighbor,
+							});
 						}
 
 						neighbor.moduleHealth[inverseDirName][possibleNeighbor]--;
 					}
 				}
 			}
+		}
+
+		for (const tile of tiles) {
+			const tileIndex = this.tiles.indexOf(tile);
+			//Now we mutate >:)
+			this.tiles.remove(tileIndex);
+		}
+
+		if (recursive) {
+			this.propagator.FinishRemovalQueue();
 		}
 	}
 
