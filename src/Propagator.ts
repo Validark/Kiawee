@@ -25,7 +25,7 @@ export class Propagator<T extends BaseTopology> {
 		this.initialTileHealth = this.CreateInitialTileHealth(model.tiles);
 
 		for (const position of topology.slots) {
-			this.slots.push(new Slot(position, model.tiles, this, this.initialTileHealth));
+			this.slots.push(new Slot(position, model.tiles, this, Object.deepCopy(this.initialTileHealth)));
 		}
 
 		if (options.Seed !== undefined) {
