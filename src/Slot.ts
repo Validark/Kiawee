@@ -70,6 +70,12 @@ export class Slot {
 		this.debugInstance.Destroy();
 	}
 
+	ContainsTile(tileIndex: string) {
+		return this.tiles.find(tile => {
+			return tile.index === tileIndex;
+		});
+	}
+
 	RemoveTiles(tiles: Array<Tile>) {
 		print("Removing tiles");
 		for (const tile of tiles) {
