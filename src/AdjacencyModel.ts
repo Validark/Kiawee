@@ -1,6 +1,6 @@
 import ITile from "./interfaces/ITile";
-import { Tile } from "./tile";
-import { BaseTopology } from "./topology";
+import { Tile } from "./Tile";
+import { BaseTopology } from "./Topology";
 
 export class AdjacencyModel<T extends BaseTopology> {
 	tiles: Array<Tile> = [];

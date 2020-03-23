@@ -1,9 +1,9 @@
-import { BaseTopology } from "./topology";
-import { AdjacencyModel } from "./adjacencyModel";
-import { Slot } from "./slot";
-import { Tile } from "./tile";
+import { BaseTopology } from "./Topology";
+import { AdjacencyModel } from "./AdjacencyModel";
+import { Slot } from "./Slot";
+import { Tile } from "./Tile";
 
-import PropagatorOptions from "./interfaces/PropagatorOptions";
+import PropagatorOptions from "./Interfaces/PropagatorOptions";
 
 export class Propagator<T extends BaseTopology> {
 	slots: Array<Slot> = [];
