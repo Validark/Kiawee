@@ -107,9 +107,6 @@ export class Slot {
 			const neighbor = this.propagator.slots.find(slot => slot.pos === neighborCoord);
 
 			if (neighbor) {
-				neighbor.debugInstance.Size = new Vector3(2.5, 2.5, 2.5).mul(neighbor.tiles.size());
-				neighbor.debugInstance.Color = Color3.fromRGB(0, 0, 255);
-
 				for (const tile of tiles) {
 					for (const possibleNeighbor of tile.possibleNeighbors[dir]) {
 						const possibleNeighborTile = neighbor.ContainsTile(possibleNeighbor);
