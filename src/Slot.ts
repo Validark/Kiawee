@@ -108,12 +108,12 @@ export class Slot {
 
 				for (const tile of tiles) {
 					for (const possibleNeighbor of tile.possibleNeighbors[dir]) {
-						if (
-							neighbor.moduleHealth[inverseDirName][possibleNeighbor] === 1 &&
-							neighbor.ContainsTile(possibleNeighbor)
-						) {
-							//Remove
+						const possibleNeighborTile = neighbor.ContainsTile(possibleNeighbor);
+						if (neighbor.moduleHealth[inverseDirName][possibleNeighbor] === 1 && possibleNeighborTile) {
+							neighbor.Collapse(possibleNeighborTile);
 						}
+
+						neighbor.moduleHealth[inverseDirName][possibleNeighbor]--;
 					}
 				}
 			}
