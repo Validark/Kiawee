@@ -60,7 +60,6 @@ export class Slot {
 	}
 
 	CalculateEntropy() {
-		print("Calculating entropy");
 		const totalProbability = this.tiles.reduce((accumulator, tile) => {
 			return accumulator + tile.probability;
 		}, 0);

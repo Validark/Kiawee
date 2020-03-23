@@ -62,8 +62,6 @@ export class Propagator<T extends BaseTopology> {
 			availableModulesLeft = this.GetAvailableModulesLeft();
 
 			if (this.options.Debug) {
-				print(`${availableModulesLeft} modules left in wave function`);
-
 				for (const slot of this.slots) {
 					slot.modulesDisplay.Text = tostring(slot.tiles.size());
 					slot.entropyDisplay.Text = tostring(slot.entropy);
