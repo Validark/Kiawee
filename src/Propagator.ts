@@ -50,7 +50,7 @@ export class Propagator<T extends BaseTopology> {
 
 		//this could be a bad idea in the future and result in infinite yielding
 		while (availableModulesLeft > 0) {
-			wait(5);
+			wait();
 
 			for (const slot of this.slots) {
 				slot.entropy = slot.CalculateEntropy();
