@@ -66,7 +66,6 @@ export class Slot {
 		}, 0);
 
 		const totalPLogP = this.tiles.reduce((accumulator, tile) => {
-			print(tile.pLogP);
 			return accumulator + tile.pLogP;
 		}, 0);
 
