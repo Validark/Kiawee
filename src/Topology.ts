@@ -1,4 +1,4 @@
-import { Slot } from "./Slot";
+import { Slot } from "./slot";
 
 interface NeighborReturn {
 	[index: string]: Vector3 | undefined;
