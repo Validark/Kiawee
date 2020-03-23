@@ -49,16 +49,18 @@ export = () => {
 				probability: 1,
 				model: placeholderModel2,
 				rules: {
-					Left: "1",
-					Right: "1",
-					Front: "1",
-					Back: "1",
-					Top: "1",
-					Bottom: "1",
+					Left: "2",
+					Right: "2",
+					Front: "2",
+					Back: "2",
+					Top: "2",
+					Bottom: "2",
 				},
 				index: "2",
 			},
 		]);
+
+		//Proper results would either be 100% green or 100% red
 
 		print("Adjacency model created");
 
