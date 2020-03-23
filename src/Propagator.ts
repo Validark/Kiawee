@@ -78,6 +78,7 @@ export class Propagator<T extends BaseTopology> {
 			this.initialTileHealth[dirName] = {};
 
 			for (const tile of tiles) {
+				for (possibleNeighbors)
 			}
 		}
 	}

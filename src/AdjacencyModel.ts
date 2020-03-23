@@ -6,25 +6,28 @@ export class AdjacencyModel<T extends BaseTopology> {
 	tiles: Array<Tile> = [];
 	constructor(public topology: T, public tileDefinitions: Array<ITile<string>>) {
 		for (const definition of tileDefinitions) {
-			this.tiles.push(new Tile(definition.model, definition.probability, definition.index));
+			const possibleNeighbors = this.GetPossibleNeighbors(definition);
+			this.tiles.push(new Tile(definition.model, definition.probability, definition.index, possibleNeighbors));
 		}
 	}
 
 	private GetPossibleNeighbors(tileDefinition: ITile<string>) {
-		const PossibleNeighbors: {
+		const possibleNeighbors: {
 			[direction: string]: Array<string>; //Array of tile indexes
 		} = {};
 
 		for (const [dirName, dirVector] of Object.entries(this.topology.Directions)) {
-			PossibleNeighbors[dirName] = [];
+			possibleNeighbors[dirName] = [];
 
 			const inverseDirName = this.GetInverseDirection(dirName);
 			for (const definition of this.tileDefinitions) {
 				if (definition.rules[inverseDirName] === tileDefinition.rules[dirName]) {
-					PossibleNeighbors[dirName].push(definition.index);
+					possibleNeighbors[dirName].push(definition.index);
 				}
 			}
 		}
+
+		return possibleNeighbors;
 	}
 
 	//This is gross
