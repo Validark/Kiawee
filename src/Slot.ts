@@ -1,6 +1,6 @@
 import { Tile } from "./Tile";
 import { Propagator } from "./Propagator";
-import { BaseTopology } from "Topology";
+import { BaseTopology } from "./Topology";
 export class Slot {
 	entropy: number;
 	confirmedTile: undefined | Tile;
