@@ -17,3 +17,6 @@ Lua users can compile the code themselves with [roblox-ts](https://roblox-ts.git
 
 ### Documentation
 To be added. For now, refer to index.spec.ts
+
+### Name
+don't ask
