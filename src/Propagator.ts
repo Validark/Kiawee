@@ -35,7 +35,7 @@ export class Propagator<T extends BaseTopology> {
 		}
 	}
 
-	GetAvailableModulesLeft(): number {
+	GetAvailableTilesLeft(): number {
 		const collapseFiltered = this.slots.filter(slot => {
 			return !slot.confirmedTile;
 		});
@@ -46,10 +46,10 @@ export class Propagator<T extends BaseTopology> {
 	}
 
 	Run() {
-		let availableModulesLeft = this.GetAvailableModulesLeft();
+		let availableTilesLeft = this.GetAvailableTilesLeft();
 
 		//this could be a bad idea in the future and result in infinite yielding
-		while (availableModulesLeft > 0) {
+		while (availableTilesLeft > 0) {
 			wait();
 
 			for (const slot of this.slots) {
@@ -59,11 +59,11 @@ export class Propagator<T extends BaseTopology> {
 			const lowestEntropy = this.FindLowestEntropy();
 			lowestEntropy.CollapseRandom();
 
-			availableModulesLeft = this.GetAvailableModulesLeft();
+			availableTilesLeft = this.GetAvailableTilesLeft();
 
 			if (this.options.Debug) {
 				for (const slot of this.slots) {
-					slot.modulesDisplay.Text = tostring(slot.tiles.size());
+					slot.tilesDisplay.Text = tostring(slot.tiles.size());
 					slot.entropyDisplay.Text = tostring(slot.entropy);
 				}
 			}

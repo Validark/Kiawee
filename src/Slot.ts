@@ -7,7 +7,7 @@ export class Slot {
 	tiles: Array<Tile>;
 
 	debugInstance: Part;
-	modulesDisplay: TextLabel;
+	tilesDisplay: TextLabel;
 	entropyDisplay: TextLabel;
 
 	private propagator: Readonly<Propagator<BaseTopology>>;
@@ -16,7 +16,7 @@ export class Slot {
 		public pos: Vector3,
 		tiles: Array<Tile>,
 		propagator: Propagator<BaseTopology>,
-		public moduleHealth: {
+		public tileHealth: {
 			[direction: string]: {
 				[Index: string]: number;
 			};
@@ -37,12 +37,12 @@ export class Slot {
 		DebugDisplay.Face = Enum.NormalId.Top;
 		DebugDisplay.Parent = DebugInst;
 
-		const modulesDisplay = new Instance("TextLabel");
-		modulesDisplay.Parent = DebugDisplay;
-		modulesDisplay.Size = new UDim2(1, 0, 0.5, 0);
-		modulesDisplay.BackgroundTransparency = 1;
-		modulesDisplay.TextScaled = true;
-		modulesDisplay.Text = tostring(this.tiles.size());
+		const tilesDisplay = new Instance("TextLabel");
+		tilesDisplay.Parent = DebugDisplay;
+		tilesDisplay.Size = new UDim2(1, 0, 0.5, 0);
+		tilesDisplay.BackgroundTransparency = 1;
+		tilesDisplay.TextScaled = true;
+		tilesDisplay.Text = tostring(this.tiles.size());
 
 		const entropyDisplay = new Instance("TextLabel");
 		entropyDisplay.Parent = DebugDisplay;
@@ -53,7 +53,7 @@ export class Slot {
 		entropyDisplay.Text = tostring(this.entropy);
 
 		this.debugInstance = DebugInst;
-		this.modulesDisplay = modulesDisplay;
+		this.tilesDisplay = tilesDisplay;
 		this.entropyDisplay = entropyDisplay;
 
 		this.propagator = propagator;
@@ -109,14 +109,14 @@ export class Slot {
 				for (const tile of tiles) {
 					for (const possibleNeighbor of tile.possibleNeighbors[dir]) {
 						const possibleNeighborTile = neighbor.ContainsTile(possibleNeighbor);
-						if (neighbor.moduleHealth[inverseDirName][possibleNeighbor] === 1 && possibleNeighborTile) {
+						if (neighbor.tileHealth[inverseDirName][possibleNeighbor] === 1 && possibleNeighborTile) {
 							this.propagator.RemovalQueue.push({
 								tile: possibleNeighborTile,
 								slot: neighbor,
 							});
 						}
 
-						neighbor.moduleHealth[inverseDirName][possibleNeighbor]--;
+						neighbor.tileHealth[inverseDirName][possibleNeighbor]--;
 					}
 				}
 			}
