@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local TestEZ = require(ReplicatedStorage:WaitForChild("TestEZ"))
 
-local results = TestEZ.TestBootstrap:run({ReplicatedStorage.Kiawe}, TestEZ.Reporters.TextReporter)
+local results = TestEZ.TestBootstrap:run({ReplicatedStorage.Kiawee}, TestEZ.Reporters.TextReporter)
 
 local statusCode = results.failureCount == 0 and 0 or 1
 
