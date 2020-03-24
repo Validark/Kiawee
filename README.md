@@ -15,7 +15,5 @@ Lua users can compile the code themselves with [roblox-ts](https://roblox-ts.git
 ![roads 1](https://github.com/Xuleos/Kiawee/raw/master/assets/roads1.png)
 ![roads 2](https://github.com/Xuleos/Kiawee/raw/master/assets/roads2.png)
 
-
-#### Resources Used: 
-1. https://github.com/marian42/wavefunctioncollapse
-2. https://github.com/mxgmn/WaveFunctionCollapse
+### Documentation
+To be added. For now, refer to index.spec.ts
