@@ -1,5 +1,5 @@
 # Kiawee
-Kiawee is a implementation of the Wave Function Collapse algorithm in Roblox
+Kiawee is an implementation of the Wave Function Collapse algorithm in Roblox
 
 ### Installation
 
