@@ -8,7 +8,7 @@ Typescript users can simply install it through npm with
 ```npm install @rbxts/kiawee```
 
 #### Lua
-Lua users can compile the code themselves with [roblox-ts](https://roblox-ts.github.io) and then sync it with [Rojo](https://rojo.space). If you don't use [Rojo](https://rojo.space), you can just download a rbxmx file from releases
+Lua users can compile the code themselves with [roblox-ts](https://roblox-ts.github.io) and then sync it with [Rojo](https://rojo.space). If you don't use [Rojo](https://rojo.space), you can just download a rbxlx file from releases
 
 ### Some images of things made with Kiawee
 
