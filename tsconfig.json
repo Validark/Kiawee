@@ -16,7 +16,7 @@
 
 		// optional
 		"baseUrl": "src",
-		"declaration": false,
+		"declaration": true,
 
 		// optional, non-configurable
 		"jsx": "react",
