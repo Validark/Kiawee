@@ -1,5 +1,5 @@
 # Kiawee
-Kiawee is an implementation of the Wave Function Collapse algorithm in Roblox
+Kiawee is an implementation of the Wave Function Collapse algorithm in Roblox by [@Xuleos](https://github.com/Xuleos)
 
 ### Installation
 
@@ -12,8 +12,8 @@ Lua users can compile the code themselves with [roblox-ts](https://roblox-ts.git
 
 ### Some images of things made with Kiawee
 
-![roads 1](https://github.com/Xuleos/Kiawee/raw/master/assets/roads1.png)
-![roads 2](https://github.com/Xuleos/Kiawee/raw/master/assets/roads2.png)
+![roads 1](https://github.com/Validark/Kiawee/raw/master/assets/roads1.png)
+![roads 2](https://github.com/Validark/Kiawee/raw/master/assets/roads2.png)
 
 ### Documentation
 To be added. For now, refer to index.spec.ts
